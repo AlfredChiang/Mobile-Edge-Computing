@@ -149,7 +149,12 @@ formulation 中使用的符号列于表II中。问题可以定义为如下所述
 
 这种假设是基于这样的事实，较早完成对所有的工作做得更好。对于不同的作业(比如j1和j2)和相同的时间t，由于作业之间的优先级差异，ωj1(t)可能不等于ωj2(t)。相应的应用程序为每个作业提供ω功能，该功能考虑了作业的重要性及其实时要求。
 
-如前所述，并非所有车辆都必须具备能够处理所有job所需的所有功能;c(i, j)用来表示这种情况。对于每个节点i和每个作业j，当且仅当j可以在i上处理时，c(i, j)=1;否则，c(i, j)=0。注意，我们在此假设对于任何作业j，至少有一个节点可以处理它(否则，作业被声明失败并在分配之前被丢弃);i.e.![image](https://github.com/qpointwang/Mobile-Edge-Computing/blob/master/AVE-Autonomous-Vehicular-Edge-Computing/f2.png)
+如前所述，并非所有车辆都必须具备能够处理所有job所需的所有功能;c(i, j)用来表示这种情况。对于每个节点i和每个作业j，当且仅当j可以在i上处理时，c(i, j)=1;否则，c(i, j)=0。注意，我们在此假设对于任何作业j，至少有一个节点可以处理它(否则，作业被声明失败并在分配之前被丢弃);i.e. ![image](https://github.com/qpointwang/Mobile-Edge-Computing/blob/master/AVE-Autonomous-Vehicular-Edge-Computing/f2.png)
+
+
+![image](https://github.com/qpointwang/Mobile-Edge-Computing/blob/master/AVE-Autonomous-Vehicular-Edge-Computing/fig4.png)
+
+如图4所示，每个作业的传输仅在前一个作业完成后才开始。对于分配给同一节点的两个作业（图中的作业1和作业4），稍后接收的作业必须等待先前作业完成才能开始处理。节点i上当前调度之前的排队时间由Qi表示。在这个框架中，因为只有当前空闲的节点才会响应，所以除请求者本身之外的所有节点的Qi都为0，即使它当前正忙，它也负责所有自己的作业。对于节点-作业对(i，j)，TSij≥0表示将作业j的数据发送到节点i所需的时间长度，TRij≥0表示处理器返回处理结果所需的时间长度，Bij>0表示处理作业所需的时间长度。如前所述，Bij是节点i在Discovery阶段期间生成的bid。从当前网络条件（包括信道带宽等），到i的跳数和要为作业j发送的数据量粗略估计TSij和TRij。特别是，如果i自己是j的请求者，我们有TSij = TRij = 0。
 
 
 
