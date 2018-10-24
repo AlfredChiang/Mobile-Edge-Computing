@@ -154,7 +154,16 @@ formulation 中使用的符号列于表II中。问题可以定义为如下所述
 
 ![image](https://github.com/qpointwang/Mobile-Edge-Computing/blob/master/AVE-Autonomous-Vehicular-Edge-Computing/fig4.png)
 
-如图4所示，每个作业的传输仅在前一个作业完成后才开始。对于分配给同一节点的两个作业（图中的作业1和作业4），稍后接收的作业必须等待先前作业完成才能开始处理。节点i上当前调度之前的排队时间由Qi表示。在这个框架中，因为只有当前空闲的节点才会响应，所以除请求者本身之外的所有节点的Qi都为0，即使它当前正忙，它也负责所有自己的作业。对于节点-作业对(i，j)，TSij≥0表示将作业j的数据发送到节点i所需的时间长度，TRij≥0表示处理器返回处理结果所需的时间长度，Bij>0表示处理作业所需的时间长度。如前所述，Bij是节点i在Discovery阶段期间生成的bid。从当前网络条件（包括信道带宽等），到i的跳数和要为作业j发送的数据量粗略估计TSij和TRij。特别是，如果i自己是j的请求者，我们有TSij = TRij = 0。
+如图4所示，每个作业的传输仅在前一个作业传输完成后才开始。对于分配给同一节点的两个作业（图中的作业1和作业4），稍后接收的作业必须等待先前作业完成才能开始处理。节点i上当前调度之前的排队时间由Qi表示。在这个框架中，因为只有当前空闲的节点才会响应，所以除请求者本身之外的所有节点的Qi都为0，即使它当前正忙，它也负责所有自己的作业。对于节点-作业对(i，j)，TSij≥0表示将作业j的数据发送到节点i所需的时间长度，TRij≥0表示处理器返回处理结果所需的时间长度，Bij>0表示处理作业所需的时间长度。如前所述，Bij是节点i在Discovery阶段期间生成的bid。从当前网络条件（包括信道带宽等），到i的跳数和要为作业j发送的数据量粗略估计TSij和TRij。特别是，如果i自己是j的请求者，我们有TSij = TRij = 0。
+
+![image](https://github.com/qpointwang/Mobile-Edge-Computing/blob/master/AVE-Autonomous-Vehicular-Edge-Computing/f3.png)
+
+当前车辆：有n个job，j1对应的执行车辆为i1，j2对应的执行车辆为i2....   j1,j2...jn组合成为集合J。优化的目标就是求每个job效用函数之和的最大值。
+
+目标函数(1)表示从所有分配的作业中获得的总效用，这是我们的优化目标。条件(C1)表示任何给定的作业都不能分配两次。条件(C2)表示每个处理节点必须与分配给它的每个作业兼容。条件(C3)-(C7)是上述传输和处理时间约束。pjk，qjk和ojk都指定时间瞬间：pjk是接收时间，qjk是指定节点上先前作业完成的等待时间，ojk是作业jk在节点上完成处理的时间。我们让Ω(S)是目标函数(1)得到的值表示作为解S的结果。上述的所有时间都是一个时间序列上的点，并不是一个时间段，理解C(1-7)可以参照表4，更加容易理解。
+
+这样的一个序列 ![image](https://github.com/qpointwang/Mobile-Edge-Computing/blob/master/AVE-Autonomous-Vehicular-Edge-Computing/f4.png)被定义为S，在本文的其余部分中称为解决此问题的方法。If k = |J|:这个方法是一个complete solution；否则，就是一个intermediate solution。特别地，k=0([∅]):null solution。在解决方案中，每个（i，j）对表示作业j到节点i的分配。 解决方案中的分配顺序是将这些作业发送到处理器的顺序。
+
 
 
 
