@@ -43,9 +43,9 @@ $$\(l(x_i) = - \log_2 P(x_i)\)$$
 ![](http://latex.codecogs.com/gif.latex?\\frac{1}{1+sin(x)})
 
 
-![](http://latex.codecogs.com/gif.latex?\\{x}=frac{1}{1+sin(x)})
+![](http://latex.codecogs.com/gif.latex?\\x=frac{1}{1+sin(x)})
 
 
-
+![](http://latex.codecogs.com/gif.latex?\\frac{\\partial J}{\\partial \\theta_k^{(j)}}=\\sum_{i:r(i,j)=1}{\\big((\\theta^{(j)})^Tx^{(i)}-y^{(i,j)}\\big)x_k^{(i)}}+\\lambda \\xtheta_k^{(j)})
 
 ![](http://latex.codecogs.com/gif.latex?\\{D_n} = \left[ {\sum \limits _{k = 1,b_i^k \in {\mathcal {B}^k}}^K {\sum \limits _{h = 1}^H {\left({{c_{i,n,h}} + {p_{i,n,h}}} \right){x_{i,n,h}}} } } \right]{\left({{\mu _n} - {\delta _n}} \right)^{ - 1}} \tag{25})
