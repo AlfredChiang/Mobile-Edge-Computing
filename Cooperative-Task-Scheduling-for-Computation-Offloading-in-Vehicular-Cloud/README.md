@@ -5,10 +5,20 @@
 [文章链接](https://ieeexplore.ieee.org/document/8451923)
 
 ### Abstract
-
+汽车工业中的技术演变，尤其是连接和自动车辆的发展，已经赋予车辆更多的计算，存储和传感资源。有效利用这些资源的必要性导致车载云计算（VCC）的愿景，其可以从边缘或远程云卸载计算任务以提高整体效率。在本文中，我们研究了通过车载云（VC）计算卸载的问题，其中来自边缘云的计算任务可以被卸载并由VC中的车辆协同执行。具体而言，计算任务进一步划分为具有相互依赖性的计算任务，并在VC中的不同车辆中执行以最小化总体响应时间。为了表征由高车辆移动性导致的计算资源的不稳定性，利用了关注车辆停留时间的移动性模型。考虑到车载计算能力的异构性和计算任务的相互依赖性，我们制定了一个NP难的任务调度优化问题。对于低复杂度，设计了基于改进遗传算法的调度方案，其中使用整数编码而不是二进制编码，并且定义和使用亲属以避免不可行解。此外，针对VC内的一些车辆离线的情况，提出了基于任务负载的VCC系统稳定性分析。数值结果表明，该方案可以显着提高计算资源的利用率，同时保证低延迟和系统稳定性。
 
 ### I. INTRODUCTION
+#### B. Main Contributions
+我们通过联合考虑资源的不稳定性，车辆计算能力的异构性以及计算任务的相互依赖性，提出了一种有效的VC任务调度方案。 我们的主要贡献总结如下。
 
+* 针对VC的独特特征，如计算任务的不稳定性，异构性和相互依赖性，提出了VC中计算卸载的协同任务调度方案，该方案被制定为NP-hard调度问题。
+
+* 为了表征车载计算资源的不稳定性，开发了一种关注停留时间的车辆移动模型，其中停留时间可以直接用于卸载决策。
+
+* 我们设计并实现了一种基于遗传的启发式算法来解决所述的NP难调度问题，从而降低了问题的复杂性，同时提高了车载资源的利用率。
+
+### System Model and Problem Formulation
+我们考虑蜂窝网络中的VC辅助计算卸载方案，其中${N}$ vehicles $\mathcal{V}=\left\lbrace{{v_1},\ldots,{v_N}}\right\rbrace$
 
 ### V. SIMULATION RESULTS
 
@@ -24,31 +34,3 @@
 
 图6（a）示出了所提出的基于MGA的调度方案的效率。 贪婪方案获得的平均响应时间为16tu，而基于MGA的方案的结果为14tu，减少了12.5％。为了进一步证明所提出的基于MGA的方案的效率，图6（b）显示了m4中任务的排队，通信和处理时间，这是与其他任务相比最复杂的任务（图4）。对于基于MGA的方案，第一任务b41被分配给第四调度时隙S4中的车辆v10。
 ![image](https://github.com/qpointwang/Mobile-Edge-Computing/blob/master/Cooperative-Task-Scheduling-for-Computation-Offloading-in-Vehicular-Cloud/f6.png)
-
-
-$$a + b$$
-
-# 机器学习-如何在github上写数学公式
-
-居中格式: $$xxx$$
-$$x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$$
-靠左格式: $\(xxx\)$
-
-$\(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)$
-测试
-$$\frac{7x+5}{1+y^2}$$
-$$\(l(x_i) = - \log_2 P(x_i)\)$$
-
-$${D_n}=\left[{\sum\limits_{k=1,b_i^k\in{\mathcal{B}^k}}^K{\sum\limits_{h=1}^H{\left({{c_{i,n,h}}+{p_{i,n,h}}}\right){x_{i,n,h}}}}}\right]{\left({{\mu_n}-{\delta_n}}\right)^{-1}}\tag{25}$$
-
-$$\left|{\overline{D}-{D_m}\left(\mathcal{T}_m^+\right)}\right|\leq\epsilon\tag{29}$$
-
-![](http://latex.codecogs.com/gif.latex?\\frac{1}{1+sin(x)})
-
-
-![](http://latex.codecogs.com/gif.latex?\\x=frac{1}{1+sin(x)})
-
-
-![](http://latex.codecogs.com/gif.latex?\\frac{\\partialJ}{\\partial\\theta_k^{(j)}}=\\sum_{i:r(i,j)=1}{\\big((\\theta^{(j)})^Tx^{(i)}-y^{(i,j)}\\big)x_k^{(i)}}+\\lambda\\xtheta_k^{(j)})
-
-![](http://latex.codecogs.com/gif.latex?\\{D_n}=\left[{\sum\limits_{k=1,b_i^k\in{\mathcal{B}^k}}^K{\sum\limits_{h=1}^H{\left({{c_{i,n,h}}+{p_{i,n,h}}}\right){x_{i,n,h}}}}}\right]{\left({{\mu_n}-{\delta_n}}\right)^{-1}}\tag{25})
