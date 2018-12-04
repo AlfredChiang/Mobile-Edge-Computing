@@ -48,6 +48,6 @@ $${D_n}=\left[{\sum\limits_{k=1,b_i^k\in{\mathcal{B}^k}}^K{\sum\limits_{h=1}^H{\
 ![](http://latex.codecogs.com/gif.latex?\\x=frac{1}{1+sin(x)})
 
 
-![](http://latex.codecogs.com/gif.latex?\\frac{\\partialJ}{\\partial\\theta_k^{(j)}}=\\sum_{i:r(i,j)=1}{\\big((\\theta^{(j)})^Tx^{(i)}-y^{(i,j)}\\big)x_k^{(i)}}+\\lambda \\xtheta_k^{(j)})
+![](http://latex.codecogs.com/gif.latex?\\frac{\\partialJ}{\\partial\\theta_k^{(j)}}=\\sum_{i:r(i,j)=1}{\\big((\\theta^{(j)})^Tx^{(i)}-y^{(i,j)}\\big)x_k^{(i)}}+\\lambda\\xtheta_k^{(j)})
 
 ![](http://latex.codecogs.com/gif.latex?\\{D_n}=\left[{\sum\limits_{k=1,b_i^k\in{\mathcal{B}^k}}^K{\sum\limits_{h=1}^H{\left({{c_{i,n,h}}+{p_{i,n,h}}}\right){x_{i,n,h}}}}}\right]{\left({{\mu_n}-{\delta_n}}\right)^{-1}}\tag{25})
