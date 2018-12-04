@@ -41,6 +41,7 @@ $$\(l(x_i) = - \log_2 P(x_i)\)$$
 
 $${D_n}=\left[{\sum\limits_{k=1,b_i^k\in{\mathcal{B}^k}}^K{\sum\limits_{h=1}^H{\left({{c_{i,n,h}}+{p_{i,n,h}}}\right){x_{i,n,h}}}}}\right]{\left({{\mu_n}-{\delta_n}}\right)^{-1}}\tag{25}$$
 
+$$\left|{\overline{D}-{D_m}\left(\mathcal{T}_m^+\right)}\right|\leq\epsilon\tag{29}$$
 
 ![](http://latex.codecogs.com/gif.latex?\\frac{1}{1+sin(x)})
 
