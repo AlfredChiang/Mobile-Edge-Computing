@@ -28,3 +28,15 @@
 \begin{align} \xi = {{\left[ {\sum \limits _{k = 1}^K {\sum \limits _{b_i^k \in {B^k}} {\left({{c_{i,n,h}} + {p_{i,n,h}}} \right)} } } \right]} \Bigg/ {\sum \limits _{k = 1}^K {T_{res}^k} }} \tag{30} \end{align}
 
 $$a + b$$
+
+
+
+# 机器学习-如何在github上写数学公式
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+居中格式: $$xxx$$
+$$x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$$
+靠左格式: \\(xxx\\)
+\\(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\\)
+测试
+$$\frac{7x+5}{1+y^2}$$
+\\(l(x_i) = - \log_2 P(x_i)\\)
