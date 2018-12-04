@@ -34,7 +34,7 @@ $$a + b$$
 
 居中格式: $$xxx$$
 $$x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$$
-靠左格式: \(xxx\)
+靠左格式: $\(xxx\)$
 \(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)
 测试
 $$\frac{7x+5}{1+y^2}$$
