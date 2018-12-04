@@ -44,4 +44,4 @@ $$\(l(x_i) = - \log_2 P(x_i)\)$$
 $$\[{D_n} = \left[ {\sum \limits _{k = 1,b_i^k \in {\mathcal {B}^k}}^K {\sum \limits _{h = 1}^H {\left({{c_{i,n,h}} + {p_{i,n,h}}} \right){x_{i,n,h}}} } } \right]{\left({{\mu _n} - {\delta _n}} \right)^{ - 1}} \tag{25}\]$$ 
 
 
-![](https://latex.codecogs.com/gif.latex?{D_n}&space;=&space;\left[&space;{\sum&space;\limits&space;_{k&space;=&space;1,b_i^k&space;\in&space;{\mathcal&space;{B}^k}}^K&space;{\sum&space;\limits&space;_{h&space;=&space;1}^H&space;{\left({{c_{i,n,h}}&space;&plus;&space;{p_{i,n,h}}}&space;\right){x_{i,n,h}}}&space;}&space;}&space;\right]{\left({{\mu&space;_n}&space;-&space;{\delta&space;_n}}&space;\right)^{&space;-&space;1}}&space;\tag{25})
+![](http://latex.codecogs.com/gif.latex?\\frac{\\partial J}{\\partial \\theta_k^{(j)}}=\\sum_{i:r(i,j)=1}{\\big((\\theta^{(j)})^Tx^{(i)}-y^{(i,j)}\\big)x_k^{(i)}}+\\lambda \\xtheta_k^{(j)})
