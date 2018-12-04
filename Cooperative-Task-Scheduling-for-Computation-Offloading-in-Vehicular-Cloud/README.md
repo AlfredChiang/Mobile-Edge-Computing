@@ -2,7 +2,7 @@
 
 ## Cooperative Task Scheduling for Computation Offloading in Vehicular Cloud
 
-[文章链接](https://ieeexplore.ieee.org/document/7946184)
+[文章链接](https://ieeexplore.ieee.org/document/8451923)
 
 ### Abstract
 
@@ -24,3 +24,5 @@
 
 图6（a）示出了所提出的基于MGA的调度方案的效率。 贪婪方案获得的平均响应时间为16tu，而基于MGA的方案的结果为14tu，减少了12.5％。为了进一步证明所提出的基于MGA的方案的效率，图6（b）显示了m4中任务的排队，通信和处理时间，这是与其他任务相比最复杂的任务（图4）。对于基于MGA的方案，第一任务b41被分配给第四调度时隙S4中的车辆v10。
 ![image](https://github.com/qpointwang/Mobile-Edge-Computing/blob/master/Cooperative-Task-Scheduling-for-Computation-Offloading-in-Vehicular-Cloud/f6.png)
+
+\begin{align} \xi = {{\left[ {\sum \limits _{k = 1}^K {\sum \limits _{b_i^k \in {B^k}} {\left({{c_{i,n,h}} + {p_{i,n,h}}} \right)} } } \right]} \Bigg/ {\sum \limits _{k = 1}^K {T_{res}^k} }} \tag{30} \end{align}
