@@ -26,3 +26,5 @@
 ![image](https://github.com/qpointwang/Mobile-Edge-Computing/blob/master/Cooperative-Task-Scheduling-for-Computation-Offloading-in-Vehicular-Cloud/f6.png)
 
 \begin{align} \xi = {{\left[ {\sum \limits _{k = 1}^K {\sum \limits _{b_i^k \in {B^k}} {\left({{c_{i,n,h}} + {p_{i,n,h}}} \right)} } } \right]} \Bigg/ {\sum \limits _{k = 1}^K {T_{res}^k} }} \tag{30} \end{align}
+
+$$a + b$$
