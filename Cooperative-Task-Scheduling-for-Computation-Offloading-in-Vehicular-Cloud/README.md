@@ -28,7 +28,7 @@
 
 $$a + b$$
 
-
+\begin{equation} {D_n} = \left[ {\sum \limits _{k = 1,b_i^k \in {\mathcal {B}^k}}^K {\sum \limits _{h = 1}^H {\left({{c_{i,n,h}} + {p_{i,n,h}}} \right){x_{i,n,h}}} } } \right]{\left({{\mu _n} - {\delta _n}} \right)^{ - 1}} \tag{25} \end{equation}
 
 # 机器学习-如何在github上写数学公式
 
