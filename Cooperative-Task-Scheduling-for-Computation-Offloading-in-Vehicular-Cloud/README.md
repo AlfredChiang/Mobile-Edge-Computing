@@ -18,7 +18,7 @@
 * 我们设计并实现了一种基于遗传的启发式算法来解决所述的NP难调度问题，从而降低了问题的复杂性，同时提高了车载资源的利用率。
 
 ### System Model and Problem Formulation
-我们考虑蜂窝网络中的VC辅助计算卸载方案，其中${N}$ vehicles $\mathcal{V}=\left\lbrace{{v_1},\ldots,{v_N}}\right\rbrace$
+我们考虑蜂窝网络中的VC辅助计算卸载方案，其中${N}$ vehicles $\mathcal{V}=\left\lbrace{{v_1},\ldots,{v_N}}\right\rbrace$在基站（BS）的覆盖范围内组织在一起以形成VC。 为了增强整体计算能力，传统边缘云（EC）可以卸载其部分计算missions $\mathcal{M}=\left\lbrace{{m_1},...,{m_K}}\right\rbrace$卸载到其覆盖范围内的VC。
 
 ### V. SIMULATION RESULTS
 
