@@ -1,5 +1,17 @@
 # Mobile-Edge-Computing
 
+## An SMDP-Based Resource Allocation in Vehicular Cloud Computing Systems
+[文章链接](https://ieeexplore.ieee.org/document/7277060)
+
+### Abstract
+车辆自组织网络有望显着提高交通安全性和运输效率，同时提供舒适的驾驶体验。然而，所连接的车辆的可用通信，存储和计算资源未得到充分利用以满足智能运输系统的服务要求。车载云计算（VCC）是一种很有前景的方法，它利用云计算的优势并将其应用于车载网络。在本文中，我们提出了一种最优计算资源分配方案，以最大化VCC系统的总长期预期回报。系统奖励是通过考虑VCC系统的收入和成本以及可用资源的可变性特征得出的。然后，将优化问题表示为具有VCC系统的定义的状态空间，动作空间，奖励模型和转移概率分布的无限时域半马尔可夫决策过程(SMDP)。我们利用迭代算法来开发描述在特定状态下必须采取哪种动作的最优方案。数值结果表明，基于SMDP的方案可以在可接受的复杂度内获得显着的性能增益。
+
+
+
+
+
+
+
 ## Resource Allocation in Vehicular Cloud Computing Systems With Heterogeneous Vehicles and Roadside Units
 
 [文章链接](https://ieeexplore.ieee.org/document/7891877)
