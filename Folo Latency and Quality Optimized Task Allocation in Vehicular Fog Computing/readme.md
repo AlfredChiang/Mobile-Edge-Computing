@@ -47,5 +47,5 @@ Folo中的任务分配过程如图1所示。整个过程包括4个步骤，如�
 当从任何客户端车辆接收请求时，区域头部执行任务分配算法以决定在何处运行任务。关于网络拓扑的频繁变化，区域头将根据其预测路径估计雾节点候选的服务时间，并过滤出仅能在非常短的时间内提供服务的雾节点。此外，利用现有的蜂窝登记机制，区域头将周期性地检查移动雾节点的位置以避免过时的信息。 该算法的细节将在第5节中介绍。
 ##### 3.2.4 Task migration scheduling
 客户端车辆和移动雾节点之间的连接可能不会持续，直到所分配的任务由于其移动性而完成。例如，当相应的雾节点从当前服务区移出时，可以中断任务的执行。在这种情况下，当前服务区的区域头必须调用另一个雾节点来接管任务。
-![image](https://github.com/qpointwang/Mobile-Edge-Computing/blob/master/Folo%20Latency%20andQuality%20Optimized%20Task%20Allocation%20in%20Vehicular%20Fog%20Computing/fig1.png)
+![image](https://github.com/qpointwang/Mobile-Edge-Computing/blob/master/Folo%20Latency%20and%20Quality%20Optimized%20Task%20Allocation%20in%20Vehicular%20Fog%20Computing/fig1.png)
 在Folo中，我们建议使用轻量级容器（例如LXD）进行服务提供[32]。 任务迁移可以是事件触发的，任务将通过迭代实时迁移（即预拷贝）进行迁移[33]。当触发任务迁移（例如，信号强度衰减到某个阈值）时，使用用户空间中的检查点和恢复（CRIU）技术，容器的磁盘文件和内存页面将从源雾节点复制到目标雾 容器继续运行时的节点。
