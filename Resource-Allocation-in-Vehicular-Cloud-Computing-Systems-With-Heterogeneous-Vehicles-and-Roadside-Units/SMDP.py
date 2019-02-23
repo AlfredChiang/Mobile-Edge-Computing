@@ -7,11 +7,11 @@ logging.basicConfig(level=logging.DEBUG,#控制台打印的日志级别
                     filemode='w',
                     format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s')
 
-K = 13 # VC能支持车辆的最大数量  3-13
+K = 10 # VC能支持车辆的最大数量  3-13
 M = 0 # VC中可用RUs的数量
 NR = 3 # 一个服务请求能最多分配RUs的数量 NR<=M
 alpha = 0.1 # 连续时间折扣因子
-lambda_p = 2 # 新服务请求的到达率  1-9
+lambda_p = 9 # 新服务请求的到达率  1-9
 lambda_v = 7 # 新车到达率  4-8
 mu_p = 8 # 请求的服务速率
 mu_v = 8 # 车辆离开率
@@ -193,6 +193,7 @@ def value_iteration():
 		pi[key] = -2
 	for i in range(1000):
 		logging.info('---------------'+str(i+1)+'---------------')
+		delta = 0.0
 		for key in stateSet:
 			
 
@@ -209,39 +210,57 @@ def value_iteration():
 
 				nextStateSet =  getNextStateSet(a,s)
 				#print(nextStateSet)
-				if s == [0,0,0,13,'A']:
-					print(nextStateSet)
+				#if s == [0,0,0,13,'A']:
+				#	print(nextStateSet)
 				SUM = 0
 				vl = 0
 				for skey in nextStateSet:
 					s_pie = nextStateSet[skey]
 					r_ba, lamda_ba, p_ba = uniform(a, s, s_pie)
-					if s == [0,0,0,13,'A']:
-						if skey in v.keys():
+					#if s == [0,0,0,13,'A']:
+					#	if skey in v.keys():
 							#vl += lamda_ba*p_ba*v[skey]
-							print('r(s,a)',r_ba,'λ_ba',lamda_ba,'p_ba(s|s,a)',p_ba,'p(s|s,a)',getTransitionProbability(a, s, s_pie),v[skey],skey)
+					#		print('r(s,a)',r_ba,'λ_ba',lamda_ba,'p_ba(s|s,a)',p_ba,'p(s|s,a)',getTransitionProbability(a, s, s_pie),v[skey],skey)
 					if skey in v.keys():
 						vl += lamda_ba*p_ba*v[skey]
 				vl += r_ba
-				if s == [0,0,0,13,'A']:
-					print(r_ba,vl,a)
+				#if s == [0,0,0,13,'A']:
+				#	print(r_ba,vl,a)
 				if vl > vmax:
 					vmax = vl
 					amax = a
+			delta += abs(vmax-v[key])
 			v[key] = vmax
 			pi[key] = amax
 			#print(key,vmax,amax)
 			#if s == [4,1,0,7,'A']:
-			if s == [0,0,0,13,'A']:
-				print(key,vmax,amax)
+			#if s == [0,0,0,13,'A']:
+			#	print(key,vmax,amax)
 				#time.sleep(5)
-	print(v)
-	print(pi)
+		#print(delta)
+		if delta < 1e-6:
+			break
+	#print(v)
+	#print(pi)
+	case0 = 0
+	case1 = 0
+	case2 = 0
+	case3 = 0
 	for key in pi:
-		print(key,pi[key])
+		#print(key,pi[key])
+		if pi[key] == 0:
+			case0 += 1
+			#print(key,pi[key])
+		elif pi[key] == 1:
+			case1 += 1
+			print(key,pi[key])
+		elif pi[key] == 2:
+			case2 += 1
+		elif pi[key] == 3:
+			case3 += 1
+	print(case0,case1,case2,case3,(case0+case1+case2+case3))
+	print(case0/(case0+case1+case2+case3),case1/(case0+case1+case2+case3),case2/(case0+case1+case2+case3),case3/(case0+case1+case2+case3))
 					
-				
-				#print(key,a,v)
 
 # in state s action a ,the next state set
 def getNextStateSet(action, state):
@@ -291,7 +310,7 @@ def uniform(action, state, state_next):
 	lamda_ba = gety() / (gety() + alpha)
 	p_ba = 0
 	if state == state_next:
-		p_ba = 1 - ((1 - getTransitionProbability(action, state, state_next)) * getMeanEventRate(action, state))/gety()
+		p_ba = ((1 - getTransitionProbability(action, state, state_next)) * getMeanEventRate(action, state))/gety()
 	else:
 		p_ba = getTransitionProbability(action, state, state_next) * getMeanEventRate(action, state)/gety()
 	return r_ba, lamda_ba, p_ba
@@ -305,22 +324,6 @@ def gety():
 	return K*lambda_p + lambda_v + mu_v + K * NR * mu_p
 # 
 if __name__ == '__main__':
-
-	# main()
 	state1 = [4,1,0,7,'D1']
 	state2 = [0,0,0,13,'A']
-	#getTransitionProbability(1,state1,state2)
-	#print(getRewardModel(-1,state2))
-	#getStateSet()
-	#getStateKey(state1)
 	value_iteration()
-	#print(getNextStateSet(-1,state1))
-	#print(getInstantRevenue(-1,state1))
-	#print(getRewardModel(-1,state1))
-	#print(getCostRate(state1))
-	print(getMeanEventRate(0,state2))
-	print(getTransitionProbability(0, state2, state2))
-	#print(getInstantRevenue(2,state1))
-	#print(getInstantRevenue(3,state1))
-	#print(getInstantRevenue(0,state1))
-	print(getRewardModel(-1, state1) * (alpha + getRewardModel(-1, state1)) / (alpha + gety()))
