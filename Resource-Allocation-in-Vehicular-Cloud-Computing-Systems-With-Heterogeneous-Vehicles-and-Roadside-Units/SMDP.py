@@ -253,7 +253,7 @@ def value_iteration():
 			#print(key,pi[key])
 		elif pi[key] == 1:
 			case1 += 1
-			print(key,pi[key])
+			print(key,getCostRate(stateSet[key]),pi[key])
 		elif pi[key] == 2:
 			case2 += 1
 		elif pi[key] == 3:

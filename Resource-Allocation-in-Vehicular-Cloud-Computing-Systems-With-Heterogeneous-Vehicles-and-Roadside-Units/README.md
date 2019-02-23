@@ -28,7 +28,7 @@
 在VANET中，每辆车都配备了车辆设备（VE），其性能类似于带有网络接口的小型计算机[6]。通过VE，车辆可以与其他VE，RSU，传感器甚至其他车辆通信。 通过交换各自的已知信息和从传感器收集的信息，可以促进驾驶安全性，并且可以减少驾驶到目的地所消耗的时间。引入云计算系统使得VE和RSU的能力几乎与小型计算机相当[7]，[8]。这种VCC网络不仅提供传输数据的能力，还提供计算服务，例如到目的地的最短路径，最佳驾驶速度等。
 
 ### System Framework
-
+![image](https://github.com/qpointwang/Mobile-Edge-Computing/blob/master/Resource-Allocation-in-Vehicular-Cloud-Computing-Systems-With-Heterogeneous-Vehicles-and-Roadside-Units/deng1-2690961-large.gif)
 #### A. Cloud Architecture
 本文定制了[16]和[28]中提出的系统来提出我们的VCC系统，如图1所示。系统中的云架构分为两层：1）远程云（RC）和2）车载云（VC）。RC由多个强大的计算资源组成，因此可以通过RC计算有效地处理任何服务。 与以前的环境不同，本文考虑了VC中的异构车辆。VC由一定范围内的多个异构车辆的VE和具有计算资源的多个RSU构成。为了量化VC中的计算资源，由车辆和RSU提供的计算资源根据资源单元（RU）的数量来测量。 来自资源池的这些RU，由集中式VC系统控制和分配。VC的计算能力取决于资源池中的RU数量。  
 由于本文涉及的车辆的异质性，这些异构车辆中的VE提供不同数量的RU。例如，在图1中，假设每个黑色车辆具有较弱的计算能力，仅向VC提供一个RU;而每个蓝色车辆（可能成本更高）具有提供2个RU的强大计算能力。 假设每个RSU提供2个RU。 然后，图1中的2个RSU和5个车辆（其中2个为蓝色，3个为黑色）在VC资源池中提供11个RU。
