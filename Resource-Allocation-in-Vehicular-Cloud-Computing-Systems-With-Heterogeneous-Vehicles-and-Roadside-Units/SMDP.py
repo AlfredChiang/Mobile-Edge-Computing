@@ -1,7 +1,8 @@
 import math
 import logging
 import time
-
+import matplotlib.pyplot as plt
+import numpy as np
 logging.basicConfig(level=logging.DEBUG,#控制台打印的日志级别
                     filename='new.log',
                     filemode='w',
@@ -11,7 +12,7 @@ K = 10 # VC能支持车辆的最大数量  3-13
 M = 0 # VC中可用RUs的数量
 NR = 3 # 一个服务请求能最多分配RUs的数量 NR<=M
 alpha = 0.1 # 连续时间折扣因子
-lambda_p = 9 # 新服务请求的到达率  1-9
+lambda_p = 1 # 新服务请求的到达率  1-9
 lambda_v = 7 # 新车到达率  4-8
 mu_p = 8 # 请求的服务速率
 mu_v = 8 # 车辆离开率
@@ -242,24 +243,8 @@ def value_iteration():
 			break
 	#print(v)
 	#print(pi)
-	case0 = 0
-	case1 = 0
-	case2 = 0
-	case3 = 0
-	for key in pi:
-		#print(key,pi[key])
-		if pi[key] == 0:
-			case0 += 1
-			#print(key,pi[key])
-		elif pi[key] == 1:
-			case1 += 1
-			print(key,getCostRate(stateSet[key]),pi[key])
-		elif pi[key] == 2:
-			case2 += 1
-		elif pi[key] == 3:
-			case3 += 1
-	print(case0,case1,case2,case3,(case0+case1+case2+case3))
-	print(case0/(case0+case1+case2+case3),case1/(case0+case1+case2+case3),case2/(case0+case1+case2+case3),case3/(case0+case1+case2+case3))
+	return v,pi,stateSet
+	
 					
 
 # in state s action a ,the next state set
@@ -310,20 +295,63 @@ def uniform(action, state, state_next):
 	lamda_ba = gety() / (gety() + alpha)
 	p_ba = 0
 	if state == state_next:
+		#p_ba = 1 - ((1 - getTransitionProbability(action, state, state_next)) * getMeanEventRate(action, state))/gety() # 按照论文中给定的公式，此概率过大，因此基本都是卸载到RC上
 		p_ba = ((1 - getTransitionProbability(action, state, state_next)) * getMeanEventRate(action, state))/gety()
 	else:
 		p_ba = getTransitionProbability(action, state, state_next) * getMeanEventRate(action, state)/gety()
 	return r_ba, lamda_ba, p_ba
 # λ
 def getLambda(action, state):
-	lamda = getMeanEventRate(action, state)/(alpha + getMeanEventRate(action, state))
+	lamda = getMeanEven·tRate(action, state)/(alpha + getMeanEventRate(action, state))
 	return lamda
 # y
 def gety():
 	#print(K*lambda_p + lambda_v + mu_v + K * NR * mu_p)
 	return K*lambda_p + lambda_v + mu_v + K * NR * mu_p
-# 
+
+def Fig2():
+	Case0 = []
+	Case1 = []
+	Case2 = []
+	Case3 = []
+	for i in range(1,10):
+		global lambda_p
+		lambda_p = i
+		logging.info('------The arrival rate of the requests per vehicle lambdap = '+str(lambda_p)+'  K = 10   lambdav = 7---------------')
+		v,pi,stateSet = value_iteration()
+		case0 = 0
+		case1 = 0
+		case2 = 0
+		case3 = 0
+		for key in pi:
+			if pi[key] == 0:
+				case0 += 1
+			elif pi[key] == 1:
+				case1 += 1
+			elif pi[key] == 2:
+				case2 += 1
+			elif pi[key] == 3:
+				case3 += 1
+		Case0.append(case0/(case0+case1+case2+case3))
+		Case1.append(case1/(case0+case1+case2+case3))
+		Case2.append(case2/(case0+case1+case2+case3))
+		Case3.append(case3/(case0+case1+case2+case3))
+		#print(case0,case1,case2,case3,(case0+case1+case2+case3))
+		#print(case0/(case0+case1+case2+case3),case1/(case0+case1+case2+case3),case2/(case0+case1+case2+case3),case3/(case0+case1+case2+case3))
+	x = np.arange(1,10)
+	l3=plt.plot(x,Case0,color = '#FFFF00',marker='1',linestyle = '-',label='case0')
+	l1=plt.plot(x,Case1,'ro-',label='case1')
+	l2=plt.plot(x,Case2,'g+-',label='case2')
+	l3=plt.plot(x,Case3,'b^-',label='case3')
+	#plt.plot(x,Case0,color = '#FFFF00',marker='2',linestyle = '-',x,Case1,'ro-',x,Case2,'g+-',x,Case3,'b^-')
+	plt.title('Action probabilities under different arrival rates of service requests per vehicle (λv = 7, and K = 10).')
+	plt.xlabel('Arrival rate of the requests(λp)')
+	plt.ylabel('Action Probability of VCC System')
+	plt.legend()
+	plt.show()
+
 if __name__ == '__main__':
 	state1 = [4,1,0,7,'D1']
 	state2 = [0,0,0,13,'A']
-	value_iteration()
+	Fig2()
+	#value_iteration()
