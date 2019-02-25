@@ -156,12 +156,14 @@ def getRewardModel(action, state):
 # state set
 def getStateSet():
 	stateSet = {}
+	total = 0
 	for M in range(K+1):
 		for i in range(K+1):
 			for j in range(K+1):
 				for k in range(K+1):
 					for e in Epsilon:
 						s = [i,j,k,M,e]
+						total += 1
 						if getCostRate(s) <= M:  
 							if e[0] == 'D':
 								if s[int(e[1])-1] > 0:
@@ -174,7 +176,6 @@ def getStateSet():
 									stateSet[getStateKey(s)] = s
 							if e == 'A':
 								stateSet[getStateKey(s)] = s
-	#print(stateSet,len(stateSet))
 	return stateSet
 # state to key
 def getStateKey(s):
@@ -183,7 +184,7 @@ def getStateKey(s):
 		key = key + str(i)+'_'
 	return key
 
-# value iteration
+# value iteration   normalized component
 def value_iteration():
 	stateSet = getStateSet()
 	# 初始化值函数 v(s) = 0
@@ -295,8 +296,8 @@ def uniform(action, state, state_next):
 	lamda_ba = gety() / (gety() + alpha)
 	p_ba = 0
 	if state == state_next:
-		#p_ba = 1 - ((1 - getTransitionProbability(action, state, state_next)) * getMeanEventRate(action, state))/gety() # 按照论文中给定的公式，此概率过大，因此基本都是卸载到RC上
-		p_ba = ((1 - getTransitionProbability(action, state, state_next)) * getMeanEventRate(action, state))/gety()
+		p_ba = 1 - ((1 - getTransitionProbability(action, state, state_next)) * getMeanEventRate(action, state))/gety() # 按照论文中给定的公式，此概率过大，因此基本都是卸载到RC上
+		#p_ba = ((1 - getTransitionProbability(action, state, state_next)) * getMeanEventRate(action, state))/gety()
 	else:
 		p_ba = getTransitionProbability(action, state, state_next) * getMeanEventRate(action, state)/gety()
 	return r_ba, lamda_ba, p_ba
@@ -360,7 +361,7 @@ def Fig2():
 		global lambda_p
 		lambda_p = i
 		logging.info('------The arrival rate of the requests per vehicle lambdap = '+str(lambda_p)+'  K = 10   lambdav = 7---------------')
-		v,pi,stateSet = value_iteration()
+		v,pi,stateSet = value_iteration1()
 		case0 = 0
 		case1 = 0
 		case2 = 0
@@ -381,6 +382,7 @@ def Fig2():
 		Case2.append(case2/(case0+case1+case2+case3))
 		Case3.append(case3/(case0+case1+case2+case3))
 		V.append(vx)
+	print(case0+case1+case2+case3)
 		#print(case0,case1,case2,case3,(case0+case1+case2+case3))
 		#print(case0/(case0+case1+case2+case3),case1/(case0+case1+case2+case3),case2/(case0+case1+case2+case3),case3/(case0+case1+case2+case3))
 	x = np.arange(1,10)
@@ -403,8 +405,79 @@ def Fig2():
 	plt.legend()
 	plt.show()
 
+
+# value iteration
+def value_iteration1():
+	stateSet = getStateSet()
+	# 初始化值函数 v(s) = 0
+	v = {}
+	pi = {}
+	for key in stateSet:
+		v[key] = 0
+		pi[key] = -2
+	for i in range(1000):
+		logging.info('---------------'+str(i+1)+'---------------')
+		delta = 0.0
+		for key in stateSet:
+			s = stateSet[key]
+			vmax = -1000000
+			amax = -2
+			for a in Alpha:
+				# 不存在情况
+				if (s[-1] == 'A' and a == -1) or (s[-1][0] == 'D' and a >= 0) or (s[-1] == 'B1' and a >= 0) or (s[-1] == 'B-1' and a >= 0): 
+					continue
+				if a > 0 and getCostRate(s) + a > s[-2]:
+					continue
+				#print('-----',a,s)
+
+				nextStateSet =  getNextStateSet(a,s)
+				#print(nextStateSet)
+				#if s == [0,0,0,13,'A']:
+				#	print(nextStateSet)
+				SUM = 0
+				vl = 0
+				for skey in nextStateSet:
+					s_pie = nextStateSet[skey]
+					r = getRewardModel(a, s)
+					lamda = getMeanEventRate(a, s)/(alpha+getMeanEventRate(a, s))
+					p = getTransitionProbability(a,s,s_pie)
+					#print(r,lamda,p)
+					#r_ba, lamda_ba, p_ba = uniform(a, s, s_pie)
+					#if s == [0,0,0,13,'A']:
+					#	if skey in v.keys():
+							#vl += lamda_ba*p_ba*v[skey]
+					#		print('r(s,a)',r_ba,'λ_ba',lamda_ba,'p_ba(s|s,a)',p_ba,'p(s|s,a)',getTransitionProbability(a, s, s_pie),v[skey],skey)
+					if skey in v.keys():
+						vl += lamda*p*v[skey]
+				vl += r
+				#if s == [0,0,0,13,'A']:
+				#	print(r_ba,vl,a)
+				if vl > vmax:
+					vmax = vl
+					amax = a
+			delta += abs(vmax-v[key])
+			v[key] = vmax
+			pi[key] = amax
+			#print(key,vmax,amax)
+			#if s == [4,1,0,7,'A']:
+			#if s == [0,0,0,13,'A']:
+			#	print(key,vmax,amax)
+				#time.sleep(5)
+		#print(i,delta)
+		if delta < 1e-6:
+			break
+	#print(v)
+	#print(pi)
+	return v,pi,stateSet
+
+
+
 if __name__ == '__main__':
 	state1 = [4,1,0,7,'D1']
 	state2 = [0,0,0,13,'A']
+	sets = getStateSet()
+	#print(len(sets))
+	#for key in sets:
+	#	print(sets[key])
 	Fig2()
-	#value_iteration()
+	#value_iteration1()
