@@ -206,27 +206,29 @@ def value_iteration():
 				# 不存在情况
 				if (s[-1] == 'A' and a == -1) or (s[-1][0] == 'D' and a >= 0) or (s[-1] == 'B1' and a >= 0) or (s[-1] == 'B-1' and a >= 0): 
 					continue
-				if a > 0 and getCostRate(s) + a > s[-2]:
+				if a > 0 and s[-1] == 'A' and getCostRate(s) + a > s[-2]:
 					continue
 				#print('-----',a,s)
 
 				nextStateSet =  getNextStateSet(a,s)
 				#print(nextStateSet)
-				#if s == [0,0,0,13,'A']:
+				#if s == [1,2,0,8,'A']:
 				#	print(nextStateSet)
 				SUM = 0
 				vl = 0
 				for skey in nextStateSet:
 					s_pie = nextStateSet[skey]
 					r_ba, lamda_ba, p_ba = uniform(a, s, s_pie)
-					#if s == [0,0,0,13,'A']:
+					#print('+++++',a, s, s_pie,p_ba,r_ba)
+					#if s == [1,2,0,8,'A']:
 					#	if skey in v.keys():
 							#vl += lamda_ba*p_ba*v[skey]
 					#		print('r(s,a)',r_ba,'λ_ba',lamda_ba,'p_ba(s|s,a)',p_ba,'p(s|s,a)',getTransitionProbability(a, s, s_pie),v[skey],skey)
 					if skey in v.keys():
+						#print(a, s, s_pie,p_ba,r_ba,lamda_ba*p_ba*v[skey])
 						vl += lamda_ba*p_ba*v[skey]
 				vl += r_ba
-				#if s == [0,0,0,13,'A']:
+				#if s == [1,2,0,8,'A']:
 				#	print(r_ba,vl,a)
 				if vl > vmax:
 					vmax = vl
@@ -234,7 +236,8 @@ def value_iteration():
 			delta += abs(vmax-v[key])
 			v[key] = vmax
 			pi[key] = amax
-			#print(key,vmax,amax)
+			#if s == [1,2,0,8,'A']:
+			#	print(key,vmax,amax)
 			#if s == [4,1,0,7,'A']:
 			#if s == [0,0,0,13,'A']:
 			#	print(key,vmax,amax)
@@ -242,8 +245,8 @@ def value_iteration():
 		#print(delta)
 		if delta < 1e-6:
 			break
-	#print(v)
-	#print(pi)
+	#for key in v:
+	#	print(stateSet[key],v[key],pi[key])
 	return v,pi,stateSet
 	
 					
@@ -287,7 +290,12 @@ def getNextStateSet(action, state):
 			for e in Epsilon:
 				s = state[0:4]
 				s.append(e)
-				s[-2] = s[-2] - 1 
+				s[-2] = s[-2] - 1
+				# 如果原状态s处于饱和状态，此时减少一个可用资源，会出现状态集之外的状态，这里做处理，将较小的a的数量减一
+				for o in range(3):
+					if s[o] > 0:
+						s[o] = s[o] - 1
+						break
 				nextStateSet[getStateKey(s)] = s
 			return nextStateSet
 
@@ -361,14 +369,13 @@ def Fig2():
 		global lambda_p
 		lambda_p = i
 		logging.info('------The arrival rate of the requests per vehicle lambdap = '+str(lambda_p)+'  K = 10   lambdav = 7---------------')
-		v,pi,stateSet = value_iteration1()
+		v,pi,stateSet = value_iteration()
 		case0 = 0
 		case1 = 0
 		case2 = 0
 		case3 = 0
 		vx = 0
 		for key in pi:
-			vx += v[key] 
 			if pi[key] == 0:
 				case0 += 1
 			elif pi[key] == 1:
@@ -381,6 +388,11 @@ def Fig2():
 		Case1.append(case1/(case0+case1+case2+case3))
 		Case2.append(case2/(case0+case1+case2+case3))
 		Case3.append(case3/(case0+case1+case2+case3))
+		k = 0
+		for key in stateSet:
+			print(k,v[key],key)
+			k += 1
+			vx += v[key] 
 		V.append(vx)
 	print(case0+case1+case2+case3)
 		#print(case0,case1,case2,case3,(case0+case1+case2+case3))
@@ -415,7 +427,7 @@ def value_iteration1():
 	for key in stateSet:
 		v[key] = 0
 		pi[key] = -2
-	for i in range(1000):
+	for i in range(2000):
 		logging.info('---------------'+str(i+1)+'---------------')
 		delta = 0.0
 		for key in stateSet:
@@ -426,14 +438,14 @@ def value_iteration1():
 				# 不存在情况
 				if (s[-1] == 'A' and a == -1) or (s[-1][0] == 'D' and a >= 0) or (s[-1] == 'B1' and a >= 0) or (s[-1] == 'B-1' and a >= 0): 
 					continue
-				if a > 0 and getCostRate(s) + a > s[-2]:
+				if a > 0 and s[-1] == 'A' and getCostRate(s) + a > s[-2]:
 					continue
 				#print('-----',a,s)
 
 				nextStateSet =  getNextStateSet(a,s)
 				#print(nextStateSet)
-				#if s == [0,0,0,13,'A']:
-				#	print(nextStateSet)
+				if s == [2,0,0,8,'A']:
+					print(nextStateSet)
 				SUM = 0
 				vl = 0
 				for skey in nextStateSet:
@@ -441,6 +453,8 @@ def value_iteration1():
 					r = getRewardModel(a, s)
 					lamda = getMeanEventRate(a, s)/(alpha+getMeanEventRate(a, s))
 					p = getTransitionProbability(a,s,s_pie)
+					#if s == [2,0,0,5,'A']:
+					#print('+++++',a, s, s_pie,p,r)
 					#print(r,lamda,p)
 					#r_ba, lamda_ba, p_ba = uniform(a, s, s_pie)
 					#if s == [0,0,0,13,'A']:
@@ -448,10 +462,12 @@ def value_iteration1():
 							#vl += lamda_ba*p_ba*v[skey]
 					#		print('r(s,a)',r_ba,'λ_ba',lamda_ba,'p_ba(s|s,a)',p_ba,'p(s|s,a)',getTransitionProbability(a, s, s_pie),v[skey],skey)
 					if skey in v.keys():
+						if s == [2,0,0,8,'A']:
+							print(a, s, s_pie,p,r,v[skey],lamda*p*v[skey])
 						vl += lamda*p*v[skey]
 				vl += r
-				#if s == [0,0,0,13,'A']:
-				#	print(r_ba,vl,a)
+				if s == [2,0,0,8,'A']:
+					print(r,vl,a)
 				if vl > vmax:
 					vmax = vl
 					amax = a
@@ -466,8 +482,11 @@ def value_iteration1():
 		#print(i,delta)
 		if delta < 1e-6:
 			break
-	#print(v)
-	#print(pi)
+	for key in v:
+		
+		if pi[key] == 2:
+			print(stateSet[key],v[key],pi[key])
+			time.sleep(1)
 	return v,pi,stateSet
 
 
@@ -480,4 +499,40 @@ if __name__ == '__main__':
 	#for key in sets:
 	#	print(sets[key])
 	Fig2()
-	#value_iteration1()
+	#value_iteration()
+	'''
+	v,pi,stateSet = value_iteration()
+	v1,pi1,stateSet1 = value_iteration1()
+	t = 0
+	c0=0
+	c1=0
+	c2=0
+	c3 = 0
+	a0=0
+	a1=0
+	a2=0
+	a3 = 0
+	for key in stateSet:
+		if stateSet[key][-1] == 'A':
+			t += 1
+		if pi[key] == 0:
+			a0 += 1
+		if pi[key] == 1:
+			a1 += 1
+		if pi[key] == 2:
+			a2 += 1
+		if pi[key] == 3:
+			a3 += 1
+		if pi1[key] == 0:
+			c0 += 1
+		if pi1[key] == 1:
+			c1 += 1
+		if pi1[key] == 2:
+			c2 += 1
+		if pi1[key] == 3:
+			c3 += 1
+		print(stateSet[key],v[key],v1[key],'--------',pi[key],pi1[key])
+	print(t)
+	print(a0,a1,a2,a3,a0+a1+a2+a3)
+	print(c0,c1,c2,c3,c0+c1+c2+c3)
+	'''
