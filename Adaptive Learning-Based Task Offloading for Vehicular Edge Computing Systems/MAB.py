@@ -69,7 +69,7 @@ def one():
     w_0 = 1000 #Cycles/bit
     A_0 = 10**-1.78#-17.8 #dB
     P = 0.1 #W
-    W = 1 #MHz
+    W = 0.1 #MHz
     sigma_2 = 10**-13 #W
     beta_0 = 0.5
     alpha_0 = 0.1
@@ -140,9 +140,9 @@ def one():
                 r_u_t_n = W*math.log(1+(P*h_t_n[key])/(sigma_2),2)*1000000
 
                 r_d_t_n = r_u_t_n
-                #print(h_t_n[key],A_0,P*h_t_n[key]/(sigma_2),math.log(1+(P*h_t_n[key])/(sigma_2),2))
-                #print(key,'总延迟',x_t[i]*1024*1024*(1/r_u_t_n+alpha_0/r_d_t_n+w_0/f_t_n[key]),'s     传输速率',r_u_t_n/1024/1024,'Mb/s')
-                #print(key,'传输延迟',x_t[i]*1024*1024*(1/r_u_t_n+alpha_0/r_d_t_n),'    执行延迟',x_t[i]*1024*1024*w_0/f_t_n[key])
+                print(h_t_n[key],A_0,P*h_t_n[key]/(sigma_2),math.log(1+(P*h_t_n[key])/(sigma_2),2))
+                print(key,'总延迟',x_t[i]*1024*1024*(1/r_u_t_n+alpha_0/r_d_t_n+w_0/f_t_n[key]),'s     传输速率',r_u_t_n/1024/1024,'Mb/s')
+                print(key,'传输延迟',x_t[i]*1024*1024*(1/r_u_t_n+alpha_0/r_d_t_n),'    执行延迟',x_t[i]*1024*1024*w_0/f_t_n[key])
                 u_ba_t_n.append(1/r_u_t_n+alpha_0/r_d_t_n+w_0/f_t_n[key])
                 u_ba_n[key] = u_ba_t_n
                 t_n[key] = i+1
@@ -177,16 +177,18 @@ def one():
 
         
 if __name__ == "__main__":
+	#one()
+	
 	TIME = []
 	for i in range(2997):
 		TIME.append(0)
-	for i in range(20000):
+	for i in range(100):
 		print(i)
 		Time = one()
 		for j in range(len(Time)):
 			TIME[j] += Time[j]
 	for j in range(len(Time)):
-		TIME[j] = TIME[j] /20000
+		TIME[j] = TIME[j] /100
 	x = np.arange(0,2997)
 	l1=plt.plot(x,TIME,'r--',label='time')
 	plt.title('Time Delay')
@@ -194,3 +196,4 @@ if __name__ == "__main__":
 	plt.ylabel('Time Period t')
 	plt.legend()
 	plt.show()
+	
